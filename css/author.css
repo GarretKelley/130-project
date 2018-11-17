@@ -1,0 +1,46 @@
+html {
+	height: 100%;
+}
+
+.header {
+	font-family: "Times New Roman", Times, serif;
+	font-size: 20px;
+	text-align: center;
+	border-bottom: 2px solid #fff;
+    padding: 5px 10px;
+	background-color: #fff;
+	border-radius: 5px;
+	box-shadow: inset 0px 1px 3px #999;
+	text-align: center;
+	margin-right: 560px;
+	margin-left: 560px;
+	margin-bottom: 30px;
+}
+
+body {
+	font-family: Helvetica, Arial, Sans-serif;
+	font-size: 13px;
+	background-color: #e7e7e7b9;
+	height: 100%;
+}
+
+.bio {
+	font-size: 20px;
+	margin-right: 120px;
+	margin-left: 120px;
+	border-bottom: 2px solid #fff;
+    padding: 15px 10px;
+	background-color: #fff;
+	border-radius: 5px;
+	box-shadow: inset 0px 1px 3px #999;
+	text-align: center;
+}
+
+.footer {
+	text-align: center;
+	font-size: 12px;
+	position: fixed;
+	bottom: 0;
+	margin: 0 auto;
+	width: 100%;
+}
