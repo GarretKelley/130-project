@@ -15,41 +15,41 @@
 					<h3>Time</h3>
 					<div class="stopwatch"></div>
 					<h3>Turns</h3>
-					<span id="turns">0</span>
+					<span id="counter">0</span>
 					<h3>Mistakes</h3>
-					<span id="mistakes">0</span>
+					<span id="counter">0</span>
 				</div>
 				<div class="control-group">
 					<h3>Settings</h3>
 					<select id="dimensions">
-						<option value="7x7">7x7</option>
-						<option value="13x13">13x13</option>
+						<option GSvalue="7x7">7x7</option>
+						<option GSvalue="13x13">13x13</option>
 					</select>
 					<span>Grid Size</span>
 					<select id = "gridC">
-						<option value="">black</option>
-						<option value="">red</option>
-						<option value="">green</option>
-						<option value="">blue</option>
-						<option value="">yellow</option>
+						<option GCvalue="">black</option>
+						<option GCvalue="">red</option>
+						<option GCvalue="">green</option>
+						<option GCvalue="">blue</option>
+						<option GCvalue="">yellow</option>
 					</select>
 					<span>Grid color</span>
 					<select id = "blockC">
-						<option value="">white</option>
-						<option value="">black</option>
-						<option value="">grey</option>
-						<option value="">green</option>
-						<option value="">yellow</option>
+						<option BCvalue="">white</option>
+						<option BCvalue="">black</option>
+						<option BCvalue="">grey</option>
+						<option BCvalue="">green</option>
+						<option BCvalue="">yellow</option>
 					</select>
 					<span>Block color</span>
 				</div>
-				<div class="control group">
-					<button id="suggest">Suggest Best Move &raquo;</button>
-				</div>
 				<div class="control-group">
-					<button id="new">New Game &raquo;</button>
-					<button id="arcade">Arcade Mode</button>
-					<button id="timed">Time Attack</button>
+					<div class ="buttons">
+						<button id="suggest">Suggest Best Move &raquo;</button>
+						<button id="new">New Game &raquo;</button>
+						<button id="arcade">Arcade Mode</button>
+						<button id="timed">Time Attack</button>
+					</div>
 				</div>
 			</div>
 			<div id="puzzle">
@@ -139,11 +139,6 @@
 				</table>
 			</div>
 		</div>
-		<div class="footer">
-		</div>
 		<script type="text/javascript" src="js/picross.js"></script>
-		<script>
-
-		</script>
 	</body>
 </html>
