@@ -95,34 +95,20 @@ function clearChildren(node) {
 
 let stopwatch = new Stopwatch(
     document.querySelector('.stopwatch'),
-	document.querySelector('.results'));
-	
-function cellClick() {
-	// on first cell click start timer
-	// on each cell click, increment turns++
-	// left click marks cell as active
-	// right click marks cell as inactive
-	// on either click check if said click is right or wrong. check .png in folder for images thereof
-		// if wrong, errors++
-	// if all cells are clicked output complete message with # errors, time completion, etc.
-}
-
-function addRowHandlers() {
-    var table = document.getElementById("1");
-    var rows = table.getElementsByTagName("tr");
-    for (i = 0; i < rows.length; i++) {
-        var currentRow = table.rows[i];
-        var createClickHandler = 
-            function(row) {
-                return function() {
-                    var cell = row.getElementsByTagName("td")[2];
-                    var id = cell.innerHTML;
-					// alert("k");
-					// stopwatch.start();
-					cell.style.backgroundColor = '#A00';
-                };
-            };
-        currentRow.onclick = createClickHandler(currentRow);
-    }
-}
-window.onload = addRowHandlers();
+    document.querySelector('.results')
+);
+    
+// turns any cell clicked on red. also starts the timer and increments turns
+// starting point for determining correct / incorrect moves, etc.
+// maybe left click for set active, right click for set inactive
+$(document).ready(function(){
+    $('.gameTable tr').click(function(e){
+        $('#turnsCounter').html(function(i, val) {return val *1+1}); // increments turns++ on each click
+        var cell = $(e.target).get(0); // this is the td
+        var tr = $(this); // this is the tr
+        $('td', tr).each(function(i, td){
+            cell.style.backgroundColor = '#A00'; // sets color of clicked cell to red
+            stopwatch.start(); // start the timer
+        });
+    });
+});
