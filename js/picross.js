@@ -98,17 +98,29 @@ let stopwatch = new Stopwatch(
     document.querySelector('.results')
 );
     
-// turns any cell clicked on red. also starts the timer and increments turns
+// turns any cell clicked on blue, and right-clicked to grey. 
+//also starts the timer and increments turns
 // starting point for determining correct / incorrect moves, etc.
-// maybe left click for set active, right click for set inactive
 $(document).ready(function(){
-    $('.gameTable tr').click(function(e){
-        $('#turnsCounter').html(function(i, val) {return val *1+1}); // increments turns++ on each click
+    $('.gameTable tr').mousedown(function(e){
+        $('#turnsCounter').html(function(i, val) {return val *1+1}); // increments turnsCounter on each click
         var cell = $(e.target).get(0); // this is the td
         var tr = $(this); // this is the tr
-        $('td', tr).each(function(i, td){
-            cell.style.backgroundColor = '#A00'; // sets color of clicked cell to red
-            stopwatch.start(); // start the timer
-        });
+        switch (e.which) {
+            case 1:
+                $('td', tr).each(function(i, td){
+                    cell.style.backgroundColor = '#0000FF'; // sets color of clicked cell to blue
+                    stopwatch.start();
+                });
+                break;
+            case 2: //+ do i need this case? not using right click
+                break;
+            case 3:
+                $('td', tr).each(function(i, td){
+                    cell.style.backgroundColor = '#A9A9A9'; // sets color of right-clicked cell to grey
+                    stopwatch.start();
+                });
+                break;
+        }
     });
 });
