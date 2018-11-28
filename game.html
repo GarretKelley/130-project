@@ -21,27 +21,15 @@
 				</div>
 				<div class="control-group">
 					<h3>Settings</h3>
-					<select id="dimensions">
-						<option GSvalue="7x7">7x7</option>
-						<option GSvalue="13x13">13x13</option>
-					</select>
-					<span>Grid Size</span>
-					<select id = "gridC">
-						<option GCvalue="">black</option>
-						<option GCvalue="">red</option>
-						<option GCvalue="">green</option>
-						<option GCvalue="">blue</option>
-						<option GCvalue="">yellow</option>
-					</select>
-					<span>Grid color</span>
-					<select id = "blockC">
-						<option BCvalue="">white</option>
-						<option BCvalue="">black</option>
-						<option BCvalue="">grey</option>
-						<option BCvalue="">green</option>
-						<option BCvalue="">yellow</option>
-					</select>
-					<span>Block color</span>
+					<form name="gridSize">Grid Size
+						<select id="gSize"></select>
+					</form>
+					<form name="blockColorForm"> Block Color
+						<select id="bColorOptions"></select>
+					</form>
+					<form name="gridColorForm"> Grid Color
+						<select id="gColorOptions"></select>
+					</form>
 				</div>
 				<div class="control-group">
 					<div class ="buttons">

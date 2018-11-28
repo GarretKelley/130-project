@@ -124,3 +124,104 @@ $(document).ready(function(){
         }
     });
 });
+
+/* potential start point to generate grid using js
+$(function(){
+    var sizes = [{
+        display: "7x7",
+        value: "7"
+    }, {
+        display: "13x13",
+        value: "13"
+    }];
+    var options = ['<option value="">Select size</option>'];
+    
+    for(var i = 0; i < colors.length; i++){
+       options.push('<option value="');
+       options.push(colors[i].value);
+       options.push('">');
+       options.push(colors[i].display);
+       options.push('</option>');       
+    }
+    $('#gSize').html(options.join('')).change(function(){
+        var val = $(this).val();
+        // do something
+    });
+});
+*/
+
+// change cell colors
+$(function(){
+    var colors = [{
+        display: "default",
+        value: "fff"
+    }, {
+        display: "black",
+        value: "000000"
+    }, {
+        display: "red",
+        value: "B22222"
+    }, {
+        display: "green",
+        value: "228b22"
+    }, {
+        display: "blue",
+        value: "1E90FF"
+    }, {
+        display: "yellow",
+        value: "FFD700"
+    }];
+    var options = ['<option value="">Select color</option>'];
+    
+    for(var i = 0; i < colors.length; i++){
+       options.push('<option value="');
+       options.push(colors[i].value);
+       options.push('">');
+       options.push(colors[i].display);
+       options.push('</option>');       
+    }
+    $('#bColorOptions').html(options.join('')).change(function(){
+        var val = $(this).val();
+        if(val){
+            $(".cell").css('backgroundColor', '#' + val);
+        }
+    });
+});
+
+// change grid colors
+$(function(){
+    var colors = [{
+        display: "default",
+        value: "ccc"
+    }, {
+        display: "black",
+        value: "000000"
+    }, {
+        display: "red",
+        value: "B22222"
+    }, {
+        display: "green",
+        value: "228b22"
+    }, {
+        display: "blue",
+        value: "1E90FF"
+    }, {
+        display: "yellow",
+        value: "FFD700"
+    }];
+    var options = ['<option value="">Select color</option>'];
+    
+    for(var i = 0; i < colors.length; i++){
+       options.push('<option value="');
+       options.push(colors[i].value);
+       options.push('">');
+       options.push(colors[i].display);
+       options.push('</option>');       
+    }
+    $('#gColorOptions').html(options.join('')).change(function(){
+        var val = $(this).val();
+        if(val){
+            $(".cell").css('borderColor', '#' + val);
+        }
+    });
+});
