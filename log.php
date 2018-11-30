@@ -2,12 +2,36 @@
 <div class="login">
 	<div id="errorMsg"></div>
 	<div class="container">
-		<div>
+		<script type="text/javascript">
+			var loginDiv;
+			var createDiv;
+			function showLogin() {
+				loginDiv.style.display = 'block';
+				createDiv.style.display = 'none';
+			}
+			function showCreate() {
+				loginDiv.style.display = 'none';
+				createDiv.style.display = 'block';
+			}
+			window.addEventListener('load', function() {
+				loginDiv = document.getElementById('login-page');
+				createDiv = document.getElementById('create-page');
+			});
+		</script>
+		<ul>
+			<li>
+				<a href="javascript:showLogin()">Sign in</a>
+			</li>
+			<li>
+				<a href="javascript:showCreate()">Sign up</a>
+			</li>
+		</ul>
+		<div id="login-page" style="display: block;">
 			<label for="login-username">Username:</label><input type="text" id="login-username"><br/>
 			<label for="login-password">Password:</label><input type="text" id="login-password"><br/>
 			<input type="submit" id="login" value="Login"/>
 		</div>
-		<div>
+		<div id="create-page" style="display: none;">
 			<label for="create-lastname">Lastname:</label><input type="text" id="create-lastname"><br/>
 			<label for="create-firstname">Firstname:</label><input type="text" id="create-firstname"><br/>
 			<label for="create-age">Age:</label><input type="text" id="create-age"><br/>
