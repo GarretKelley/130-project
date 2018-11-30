@@ -1,5 +1,6 @@
 <?php
 
+include('includes/check-token.php');
 include('includes/header.php');
 
 ?>

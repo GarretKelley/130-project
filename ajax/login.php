@@ -1,6 +1,7 @@
 <?php
 
 include_once('../php/connection.php');
+include('../php/jwt.php');
 
 $inputJSON = file_get_contents('php://input');
 $input = json_decode($inputJSON, TRUE);
@@ -32,17 +33,18 @@ if (!$isLogin && !$isCreate) {
     
     $db = connectDB();
     if ($isLogin) {
-        $stmt = $db->prepare("SELECT password FROM players WHERE username=?"); //SELECT id FROM players WHERE username=? and password=?");
+        $stmt = $db->prepare("SELECT id, password FROM players WHERE username=?"); //SELECT id FROM players WHERE username=? and password=?");
         $stmt->bind_param("s", $username);
         if (!$stmt->execute()) {
             internal_error();
         }
-        $stmt->bind_result($dbPass);
+        $stmt->bind_result($userID, $dbPass);
         $stmt->fetch();
         if (!password_verify($password, $dbPass)) {
             return_error('Wrong username or password.');
         }
-        // TODO set cookie, using json web token
+        setcookie($jwt_cookie_name, make_token(['user_id'=>$userID]), time() + (86400 * 30), "/");
+        echo('/130-project/game.php');
     } else {
         $password = password_hash($password, PASSWORD_DEFAULT);
         $stmt = $db->prepare("INSERT INTO players (firstname, lastname, age, gender, location, username, password)
@@ -54,9 +56,8 @@ if (!$isLogin && !$isCreate) {
             internal_error();
             // TODO might have to handle duplicate usernames here (also no constrait on table yet.. problem)
         }
+        echo('Success! Please log in.');
     }
-
-    echo('/130-project/game.php');
 }
 
 ?>
