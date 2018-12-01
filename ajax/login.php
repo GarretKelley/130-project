@@ -1,7 +1,7 @@
 <?php
 
 include_once('../php/connection.php');
-include('../php/jwt.php');
+include('../php/token.php');
 
 $inputJSON = file_get_contents('php://input');
 $input = json_decode($inputJSON, TRUE);
@@ -43,7 +43,7 @@ if (!$isLogin && !$isCreate) {
         if (!password_verify($password, $dbPass)) {
             return_error('Wrong username or password.');
         }
-        setcookie($jwt_cookie_name, make_token(['user_id'=>$userID]), time() + (86400 * 30), "/");
+        setcookie($token_cookie_name, make_token(['user_id'=>$userID]), time() + (86400 * 30), "/");
         echo('/130-project/game.php');
     } else {
         $password = password_hash($password, PASSWORD_DEFAULT);

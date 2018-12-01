@@ -123,7 +123,6 @@ include('includes/header.php');
 				</table>
 			</div>
 		</div>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 		<script type="text/javascript" src="js/picross.js"></script>
 	</body>
 </html>
