@@ -1,6 +1,7 @@
 <?php
 
 include('includes/check-token.php');
+validateToken(true);
 include('includes/header.php');
 
 ?>

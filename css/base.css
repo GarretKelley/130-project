@@ -1,0 +1,47 @@
+html {
+	height: 100%;
+}
+
+body {
+	font-family: Helvetica, Arial, Sans-serif;
+	font-size: 13px;
+	background-color: #fafafa;
+    height: 100%;
+    margin: 0;
+}
+
+header {
+    background-color: #363697;
+}
+
+.buttons {
+    width: 800px;
+    margin: auto;
+    display: flex;
+}
+
+.buttons a {
+    margin-right: 15px;
+    text-decoration: none;
+}
+
+.buttons button {
+    background-color: rgba(141, 140, 150, 0.918);
+    border: none;
+    color: white;
+    padding: 5px 15px;
+    text-align: center;
+	display: block;
+	margin: 0 auto;
+	margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.buttons a[href] button {
+    cursor: pointer;
+}
+
+.buttons button:hover,
+.buttons a.current button {
+    background-color: rgb(84, 76, 189);
+}

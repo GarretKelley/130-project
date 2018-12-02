@@ -12,6 +12,7 @@ connectDB();
     <?php
         $currentName = basename($_SERVER['PHP_SELF']);
         $cssFile = explode('.', $currentName)[0];
+        print("<link rel=\"stylesheet\" type=\"text/css\" href=\"css/base.css\"/>\n");
         print("<link rel=\"stylesheet\" type=\"text/css\" href=\"css/$cssFile.css\"/>\n");
     ?>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -21,14 +22,39 @@ connectDB();
 <body>
 <header>
     <div class="buttons">
-        <button class="a">Log out</button>
-        <button class="a" onclick="location.href='about.html'">How to play &raquo;</button>
-        <button class="a" onclick="location.href='author.html'">About the author &raquo;</button>
-        <button class="b" onclick="location.href='game.html'">PLAY</button>
+        <?php
+        if ($GLOBALS['is_logged_in']) {
+            echo("<a href=\"javascript:logout()\"><button>Logout</button></a>");
+        } else {
+            if (preg_match('/index.php$/', $_SERVER['PHP_SELF'])) {
+                echo("<a class=\"current\"><button>Login</button></a>");
+            } else {
+                echo("<a href=\"/130-project\"><button>Login</button></a>");
+            }
+        }
+        if (preg_match('/howto.php$/', $_SERVER['PHP_SELF'])) {
+            echo("<a class=\"current\"><button>How to play &raquo;</button></a>");
+        } else {
+            echo("<a href=\"howto.php\"><button>How to play &raquo;</button></a>");
+        }
+        if (preg_match('/about.php$/', $_SERVER['PHP_SELF'])) {
+            echo("<a class=\"current\"><button>About the authors &raquo;</button></a>");
+        } else {
+            echo("<a href=\"about.php\"><button>About the authors &raquo;</button></a>");
+        }
+        if ($GLOBALS['is_logged_in']) {
+            if (preg_match('/game.php$/', $_SERVER['PHP_SELF'])) {
+                echo("<a class=\"current\"><button>PLAY</button></a>");
+            } else {
+                echo("<a href=\"game.php\"><button>PLAY</button></a>");
+            }
+        }
+        ?>
+        <script type="text/javascript">
+            function logout() {
+                document.cookie = "<?php include('php/token.php'); echo($token_cookie_name); ?>=0;expires=0;path=/";
+                location.reload(true);
+            }
+        </script>
     </div>
 </header>
-<?php
-
-echo("hello world!"); 
-
-?>
