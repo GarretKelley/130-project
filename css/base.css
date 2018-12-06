@@ -25,7 +25,8 @@ header {
     text-decoration: none;
 }
 
-.buttons button {
+.buttons button,
+.buttons label {
     background-color: rgba(141, 140, 150, 0.918);
     border: none;
     color: white;
@@ -37,11 +38,22 @@ header {
     margin-bottom: 10px;
 }
 
-.buttons a[href] button {
+.buttons a[href] button,
+.buttons label {
     cursor: pointer;
 }
 
+.buttons label {
+    position: fixed;
+    right: 20px;
+}
+
+.buttons input[type="file"] {
+    display: none;
+}
+
 .buttons button:hover,
+.buttons label:hover,
 .buttons a.current button {
     background-color: rgb(84, 76, 189);
 }
