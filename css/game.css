@@ -75,19 +75,19 @@ h1 {
 	width: 600px;
 }
 
-#puzzle td.key {
+#puzzle th.key {
 	font-weight: bold;
 	font-family: Monospace;
 }
 
-#puzzle td.key.top {
+#puzzle th.key.top {
 	text-align: center;
 	vertical-align: bottom;
 	padding-bottom: 5px;
 	line-height: 1.3;
 }
 
-#puzzle td.key.left {
+#puzzle th.key.left {
 	text-align: right;
 	vertical-align: middle;
 	padding-right: 10px;

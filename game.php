@@ -3,6 +3,7 @@
 include('includes/check-token.php');
 validateToken(true);
 include('includes/header.php');
+include('php/levelFunctions.php');
 
 ?>
 		<div class="container">
@@ -12,7 +13,7 @@ include('includes/header.php');
 				</h1>
 				<div class="control-group">
 					<h3>Time</h3>
-					<div class="stopwatch"></div>
+					<div class="stopwatch">00:00:00</div>
 					<h3>Turns</h3>
 					<span id="turnsCounter">0</span>
 					<h3>Mistakes</h3>
@@ -41,86 +42,31 @@ include('includes/header.php');
 			</div>
 			<div id="puzzle">
 				<table class = 'gameTable'>
-						<tr>
-							<td></td>
-							<td class="key top">1</td>
-							<td class="key top">4</td>
-							<td class="key top">2</td>
-							<td class="key top"></td>
-							<td class="key top">1</td>
-							<td class="key top">4</td>
-							<td class="key top">2</td>
-						</tr>
-						<tr>
-							<td class="key left"></td>
-							<td class="cell s0" id="0-0" data-x="0" data-y="0"></td>
-							<td class="cell s0" data-x="0" data-y="1"></td>
-							<td class="cell s0" data-x="0" data-y="2"></td>
-							<td class="cell s0" data-x="0" data-y="3"></td>
-							<td class="cell s0" data-x="0" data-y="4"></td>
-							<td class="cell s0" data-x="0" data-y="5"></td>
-							<td class="cell s0" data-x="0" data-y="6"></td>
-						</tr>
-						<tr>
-							<td class="key left">2&nbsp;1</td>
-							<td class="cell s0" data-x="1" data-y="0"></td>
-							<td class="cell s0" data-x="1" data-y="1"></td>
-							<td class="cell s0" data-x="1" data-y="2"></td>
-							<td class="cell s0" data-x="1" data-y="3"></td>
-							<td class="cell s0" data-x="1" data-y="4"></td>
-							<td class="cell s0" data-x="1" data-y="5"></td>
-							<td class="cell s0" data-x="1" data-y="6"></td>
-						</tr>
-						<tr>
-							<td class="key left">2</td>
-							<td class="cell s0" data-x="2" data-y="0"></td>
-							<td class="cell s0" data-x="2" data-y="1"></td>
-							<td class="cell s0" data-x="2" data-y="2"></td>
-							<td class="cell s0" data-x="2" data-y="3"></td>
-							<td class="cell s0" data-x="2" data-y="4"></td>
-							<td class="cell s0" data-x="2" data-y="5"></td>
-							<td class="cell s0" data-x="2" data-y="6"></td>
-						</tr>
-						<tr>
-							<td class="key left">2</td>
-							<td class="cell s0" data-x="3" data-y="0"></td>
-							<td class="cell s0" data-x="3" data-y="1"></td>
-							<td class="cell s0" data-x="3" data-y="2"></td>
-							<td class="cell s0" data-x="3" data-y="3"></td>
-							<td class="cell s0" data-x="3" data-y="4"></td>
-							<td class="cell s0" data-x="3" data-y="5"></td>
-							<td class="cell s0" data-x="3" data-y="6"></td>
-						</tr>
-						<tr>
-							<td class="key left">1</td>
-							<td class="cell s0" data-x="4" data-y="0"></td>
-							<td class="cell s0" data-x="4" data-y="1"></td>
-							<td class="cell s0" data-x="4" data-y="2"></td>
-							<td class="cell s0" data-x="4" data-y="3"></td>
-							<td class="cell s0" data-x="4" data-y="4"></td>
-							<td class="cell s0" data-x="4" data-y="5"></td>
-							<td class="cell s0" data-x="4" data-y="6"></td>
-						</tr>
-						<tr>
-							<td class="key left">1</td>
-							<td class="cell s0" data-x="5" data-y="0"></td>
-							<td class="cell s0" data-x="5" data-y="1"></td>
-							<td class="cell s0" data-x="5" data-y="2"></td>
-							<td class="cell s0" data-x="5" data-y="3"></td>
-							<td class="cell s0" data-x="5" data-y="4"></td>
-							<td class="cell s0" data-x="5" data-y="5"></td>
-							<td class="cell s0" data-x="5" data-y="6"></td>
-						</tr>
-						<tr>
-							<td class="key left">1</td>
-							<td class="cell s0" data-x="6" data-y="0"></td>
-							<td class="cell s0" data-x="6" data-y="1"></td>
-							<td class="cell s0" data-x="6" data-y="2"></td>
-							<td class="cell s0" data-x="6" data-y="3"></td>
-							<td class="cell s0" data-x="6" data-y="4"></td>
-							<td class="cell s0" data-x="6" data-y="5"></td>
-							<td class="cell s0" data-x="6" data-y="6"></td>
-						</tr>
+					<?php
+
+					if (isset($_GET['mode']) && $_GET['mode'] === 'rand') {
+						$level = getRandomLevel();
+					}
+
+					// Header
+					echo("<tr><th></th>");
+					for ($i = 0; $i < count($level); $i++) {
+						$counts = join(" ", getCounts(array_column($level, $i)));
+						echo("<th class=\"key top\">$counts</th>");
+					}
+					echo("</tr>");
+
+					foreach($level as $rowIndex => $row) {
+						echo("<tr>");
+						$counts = join(" ", getCounts($row));
+						echo("<th class=\"key left\">$counts</th>");
+						foreach($row as $colIndex => $value) {
+							echo("<td class=\"cell\" id=\"$rowIndex-$colIndex\" data-val=\"$value\"></td>");
+						}
+						echo("</tr>");
+					}
+
+					?>
 				</table>
 			</div>
 		</div>

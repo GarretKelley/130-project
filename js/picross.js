@@ -11,7 +11,6 @@ var stopwatch = (function() {
     this.start = function(printSelector) {
         var text;
         $clock = $(printSelector);
-        $clock.text('00:00:00');
 
         intervalID = setInterval(function() {
             text = _this.incrementTime();
@@ -48,12 +47,19 @@ var gameBoard = {};
 $(function() {
     var $counter = $('#turnsCounter');
     var counter = 0;
+    var $mistakes = $('#mistakesCounter');
+    var mistakes = 0;
 
     function handleClick($clickedCell, cellValue, backgroundColor) {
         var id = $clickedCell.attr('id');
+        var correctValue = $clickedCell.attr('data-val');
         if (gameBoard[id] !== cellValue) {
             counter += 1;
             $counter.text(counter);
+            if (cellValue != correctValue) {
+                mistakes += 1;
+                $mistakes.text(mistakes);
+            }
         }
         gameBoard[id] = cellValue;
         $clickedCell.css('background-color', backgroundColor);
