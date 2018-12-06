@@ -20,6 +20,10 @@ h1 {
 	text-align: center;
 }
 
+.gameTable {
+	border-collapse: collapse;
+}
+
 .controls {
 	float: left;
 	width: 200px;
@@ -90,7 +94,7 @@ h1 {
 }
 
 #puzzle td.cell {
-	border: 1px solid #ccc;
+	border: 2px solid #ccc;
 	background-color: #fff;
 	width: 105px;
 	height: 105px;
