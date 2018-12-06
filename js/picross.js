@@ -50,11 +50,12 @@ $(function() {
     var counter = 0;
 
     function handleClick($clickedCell, cellValue, backgroundColor) {
-        if (gameBoard[$clickedCell.id] !== cellValue) {
+        var id = $clickedCell.attr('id');
+        if (gameBoard[id] !== cellValue) {
             counter += 1;
             $counter.text(counter);
         }
-        gameBoard[$clickedCell.id] = cellValue;
+        gameBoard[id] = cellValue;
         $clickedCell.css('background-color', backgroundColor);
         if (!stopwatch.started) {
             stopwatch.start('.stopwatch');
@@ -97,39 +98,37 @@ $(function(){
 */
 
 // change cell colors
-$(function(){
+$(function() {
     var colors = [{
-        display: "default",
-        value: "fff"
-    }, {
-        display: "black",
+        display: "Black",
         value: "000000"
     }, {
-        display: "red",
+        display: "Red",
         value: "B22222"
     }, {
-        display: "green",
+        display: "Green",
         value: "228b22"
     }, {
-        display: "blue",
+        display: "Blue",
         value: "1E90FF"
     }, {
-        display: "yellow",
+        display: "Yellow",
         value: "FFD700"
     }];
-    var options = ['<option value="">Select color</option>'];
+    var options = ['<option selected value="fff">Default</option>'];
     
     for(var i = 0; i < colors.length; i++){
-       options.push('<option value="');
-       options.push(colors[i].value);
-       options.push('">');
-       options.push(colors[i].display);
-       options.push('</option>');       
+       options.push('<option value="' + colors[i].value + '">' + colors[i].display + '</option>');    
     }
-    $('#bColorOptions').html(options.join('')).change(function(){
+    $('#bColorOptions').html(options.join('')).change(function() {
         var val = $(this).val();
-        if(val){
-            $(".cell").css('backgroundColor', '#' + val);
+        if (val) {
+            $(".cell").each(function() {
+                var $cell = $(this);
+                if (!gameBoard.hasOwnProperty($cell.attr('id'))) {
+                    $cell.css('backgroundColor', '#' + val);
+                }
+            });
         }
     });
 });
