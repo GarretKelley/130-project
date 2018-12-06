@@ -53,7 +53,7 @@ include('includes/header.php');
 						</tr>
 						<tr>
 							<td class="key left"></td>
-							<td class="cell s0" data-x="0" data-y="0"></td>
+							<td class="cell s0" id="0-0" data-x="0" data-y="0"></td>
 							<td class="cell s0" data-x="0" data-y="1"></td>
 							<td class="cell s0" data-x="0" data-y="2"></td>
 							<td class="cell s0" data-x="0" data-y="3"></td>

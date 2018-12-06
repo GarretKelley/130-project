@@ -1,127 +1,73 @@
-class Stopwatch {
-    constructor(display, results) {
-        this.running = false;
-        this.display = display;
-        this.results = results;
-        this.laps = [];
-        this.reset();
-        this.print(this.times);
-    }
-    
-    reset() {
-        this.times = [ 0, 0, 0 ];
-    }
-    
-    start() {
-        if (!this.time) this.time = performance.now();
-        if (!this.running) {
-            this.running = true;
-            requestAnimationFrame(this.step.bind(this));
-        }
-    }
-    
-    lap() {
-        let times = this.times;
-        let li = document.createElement('li');
-        li.innerText = this.format(times);
-        this.results.appendChild(li);
-    }
-    
-    stop() {
-        this.running = false;
-        this.time = null;
-    }
+var stopwatch = (function() {
+    var _this = this;
+    var intervalID;
+    var $clock;
+    var timeElapsed = 0;
+    _this.started = false;
 
-    restart() {
-        if (!this.time) this.time = performance.now();
-        if (!this.running) {
-            this.running = true;
-            requestAnimationFrame(this.step.bind(this));
-        }
-        this.reset();
-    }
-    
-    clear() {
-        clearChildren(this.results);
-    }
-    
-    step(timestamp) {
-        if (!this.running) return;
-        this.calculate(timestamp);
-        this.time = timestamp;
-        this.print();
-        requestAnimationFrame(this.step.bind(this));
-    }
-    
-    calculate(timestamp) {
-        var diff = timestamp - this.time;
-        // Hundredths of a second are 100 ms
-        this.times[2] += diff / 10;
-        // Seconds are 100 hundredths of a second
-        if (this.times[2] >= 100) {
-            this.times[1] += 1;
-            this.times[2] -= 100;
-        }
-        // Minutes are 60 seconds
-        if (this.times[1] >= 60) {
-            this.times[0] += 1;
-            this.times[1] -= 60;
-        }
-    }
-    
-    print() {
-        this.display.innerText = this.format(this.times);
-    }
-    
-    format(times) {
-        return `\
-${pad0(times[0], 2)}:\
-${pad0(times[1], 2)}:\
-${pad0(Math.floor(times[2]), 2)}`;
-    }
-}
+    /**
+     * Starts timer, prints to 
+     */
+    this.start = function(printSelector) {
+        var text;
+        $clock = $(printSelector);
+        $clock.text('00:00:00');
 
-function pad0(value, count) {
-    var result = value.toString();
-    for (; result.length < count; --count)
-        result = '0' + result;
-    return result;
-}
+        intervalID = setInterval(function() {
+            text = _this.incrementTime();
+            $clock.text(text);
+        }, 1000);
+        _this.started = true;
+    };
 
-function clearChildren(node) {
-    while (node.lastChild)
-        node.removeChild(node.lastChild);
-}
+    /**
+     * Increments time by 10 ms.
+     * @returns {String} Formatted time.
+     */
+    this.incrementTime = function() {
+        timeElapsed += 1000;
+        return new Date(timeElapsed).toISOString().slice(11, -5);
+    };
 
-let stopwatch = new Stopwatch(
-    document.querySelector('.stopwatch'),
-    document.querySelector('.results')
-);
+    /**
+     * Stops the counting interval.
+     */
+    this.stop = function() {
+        clearInterval(intervalID);
+        _this.started = false;
+    };
+
+    return this;
+})();
+
+var gameBoard = {};
     
 // turns any cell clicked on blue, and right-clicked to grey. 
 //also starts the timer and increments turns
 // starting point for determining correct / incorrect moves, etc.
-$(document).ready(function(){
-    $('.gameTable tr').mousedown(function(e){
-        $('#turnsCounter').html(function(i, val) {return val *1+1}); // increments turnsCounter on each click
-        var cell = $(e.target).get(0); // this is the td
-        var tr = $(this); // this is the tr
-        switch (e.which) {
-            case 1:
-                $('td', tr).each(function(i, td){
-                    cell.style.backgroundColor = '#0000FF'; // sets color of clicked cell to blue
-                    stopwatch.start();
-                });
-                break;
-            case 2: //+ do i need this case? not using right click
-                break;
-            case 3:
-                $('td', tr).each(function(i, td){
-                    cell.style.backgroundColor = '#A9A9A9'; // sets color of right-clicked cell to grey
-                    stopwatch.start();
-                });
-                break;
+$(function() {
+    var $counter = $('#turnsCounter');
+    var counter = 0;
+
+    function handleClick($clickedCell, cellValue, backgroundColor) {
+        if (gameBoard[$clickedCell.id] !== cellValue) {
+            counter += 1;
+            $counter.text(counter);
         }
+        gameBoard[$clickedCell.id] = cellValue;
+        $clickedCell.css('background-color', backgroundColor);
+        if (!stopwatch.started) {
+            stopwatch.start('.stopwatch');
+        }
+    }
+
+    $('.gameTable td.cell').on('click', function() {
+        handleClick($(this), true, '#0000FF');
+    });
+
+    $('.gameTable td.cell').on('contextmenu', function(event) {
+        handleClick($(this), false, '#A9A9A9');
+        event.preventDefault();
     });
 });
 
