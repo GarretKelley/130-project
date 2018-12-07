@@ -29,6 +29,9 @@ function getCounts($arr) {
             $streak = 0;
         }
     }
+    if ($streak !== 0) {
+        array_push($counts, $streak);
+    }
     return $counts;
 }
 

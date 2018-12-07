@@ -20,7 +20,7 @@ include('php/levelFunctions.php');
 					<span id="mistakesCounter">0</span>
 				</div>
 				<div class="control-group">
-					<h3>Settings</h3>
+					<h3>Layout</h3>
 					<form name="gridSize">Grid Size
 						<select id="gSize"></select>
 					</form>
@@ -41,29 +41,32 @@ include('php/levelFunctions.php');
 				</div>
 			</div>
 			<div id="puzzle">
-				<table class = 'gameTable'>
+				<table class="gameTable">
 					<?php
 
-					if (isset($_GET['mode']) && $_GET['mode'] === 'rand') {
-						$level = getRandomLevel();
-					}
-
-					// Header
-					echo("<tr><th></th>");
-					for ($i = 0; $i < count($level); $i++) {
-						$counts = join(" ", getCounts(array_column($level, $i)));
-						echo("<th class=\"key top\">$counts</th>");
-					}
-					echo("</tr>");
-
-					foreach($level as $rowIndex => $row) {
-						echo("<tr>");
-						$counts = join(" ", getCounts($row));
-						echo("<th class=\"key left\">$counts</th>");
-						foreach($row as $colIndex => $value) {
-							echo("<td class=\"cell\" id=\"$rowIndex-$colIndex\" data-val=\"$value\"></td>");
+					function outputLevel($level) {
+						// Header
+						echo("<tr class=\"top\"><th></th>");
+						for ($i = 0; $i < count($level); $i++) {
+							$counts = join(" ", getCounts(array_column($level, $i)));
+							echo("<th class=\"key top\">$counts</th>");
 						}
 						echo("</tr>");
+
+						foreach($level as $rowIndex => $row) {
+							echo("<tr>");
+							$counts = join(" ", getCounts($row));
+							echo("<th class=\"key left\">$counts</th>");
+							foreach($row as $colIndex => $value) {
+								echo("<td class=\"cell\" id=\"$rowIndex-$colIndex\" data-val=\"$value\"></td>");
+							}
+							echo("</tr>");
+						}
+					}
+
+					if (isset($_GET['mode']) && $_GET['mode'] === 'rand') {
+						$board = getRandomLevel();
+						outputLevel($board);
 					}
 
 					?>
