@@ -5,6 +5,12 @@ validateToken(true);
 include('includes/header.php');
 include('php/levelFunctions.php');
 
+if (isset($_GET['size']) && in_array($_GET['size'], ['0', '1'])) {
+	$GLOBALS['size'] = (int)$_GET['size'];
+} else {
+	$GLOBALS['size'] = 0;
+}
+
 ?>
 		<div class="container">
 			<div class="controls">
@@ -18,22 +24,40 @@ include('php/levelFunctions.php');
 					<span id="turnsCounter">0</span>
 					<h3>Mistakes</h3>
 					<span id="mistakesCounter">0</span>
-				</div>
-				<div class="control-group">
-					<h3>Layout</h3>
-					<form name="gridSize">Grid Size
-						<select id="gSize"></select>
-					</form>
-					<form name="blockColorForm"> Block Color
-						<select id="bColorOptions"></select>
-					</form>
-					<form name="gridColorForm"> Grid Color
-						<select id="gColorOptions"></select>
-					</form>
-				</div>
-				<div class="control-group">
+					<h3>Board</h3>
+					<div>
+						<label for="bColorOptions">Block Color</label>
+						<select autocomplete="off" id="bColorOptions">
+							<option selected value="FFF">Default</option>
+							<option value="000">Black</option>
+							<option value="B22222">Red</option>
+							<option value="228B22">Green</option>
+							<option value="1E90FF">Blue</option>
+							<option value="FFD700">Yellow</option>
+						</select>
+					</div>
+					<div>
+						<label for="gColorOptions">Grid Color</label>
+						<select autocomplete="off" id="gColorOptions">
+							<option selected value="CCC">Default</option>
+							<option value="000">Black</option>
+							<option value="B22222">Red</option>
+							<option value="228B22">Green</option>
+							<option value="1E90FF">Blue</option>
+							<option value="FFD700">Yellow</option>
+						</select>
+					</div>
 					<div class ="buttons">
 						<button id="suggest">Suggest Best Move &raquo;</button>
+					</div>
+				</div>
+				<div class="control-group">
+					<label for="gSize">Grid Size</label>
+					<select id="gSize">
+						<option <?php if ($GLOBALS['size'] === 0) { echo('selected'); } ?> value="0">7x7</option>
+						<option <?php if ($GLOBALS['size'] === 1) { echo('selected'); } ?> value="1">13x13</option>
+					</select>
+					<div class ="buttons">
 						<button id="new">New Game &raquo;</button>
 						<button id="arcade">Arcade Mode</button>
 						<button id="timed">Time Attack</button>
@@ -67,6 +91,8 @@ include('php/levelFunctions.php');
 					if (isset($_GET['mode']) && $_GET['mode'] === 'rand') {
 						$board = getRandomLevel();
 						outputLevel($board);
+					} else if (isset($_GET['mode']) && $_GET['mode'] === 'arcade') {
+						
 					}
 
 					?>

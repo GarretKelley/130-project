@@ -126,28 +126,7 @@ $(function(){
 
 // change cell colors
 $(function() {
-    var colors = [{
-        display: "Black",
-        value: "000000"
-    }, {
-        display: "Red",
-        value: "B22222"
-    }, {
-        display: "Green",
-        value: "228b22"
-    }, {
-        display: "Blue",
-        value: "1E90FF"
-    }, {
-        display: "Yellow",
-        value: "FFD700"
-    }];
-    var options = ['<option selected value="fff">Default</option>'];
-    
-    for (var i = 0; i < colors.length; i++){
-       options.push('<option value="' + colors[i].value + '">' + colors[i].display + '</option>');    
-    }
-    $('#bColorOptions').html(options.join('')).change(function() {
+    $('#bColorOptions').change(function() {
         var val = $(this).val();
         if (val) {
             $(".cell").each(function() {
@@ -162,28 +141,7 @@ $(function() {
 
 // change grid colors
 $(function() {
-    var colors = [{
-        display: "Black",
-        value: "000000"
-    }, {
-        display: "Red",
-        value: "B22222"
-    }, {
-        display: "Green",
-        value: "228b22"
-    }, {
-        display: "Blue",
-        value: "1E90FF"
-    }, {
-        display: "Yellow",
-        value: "FFD700"
-    }];
-    var options = ['<option selected value="ccc">Default</option>'];
-    
-    for (var i = 0; i < colors.length; i++){
-       options.push('<option value="' + colors[i].value + '">' + colors[i].display + '</option>');       
-    }
-    $('#gColorOptions').html(options.join('')).change(function(){
+    $('#gColorOptions').change(function(){
         var val = $(this).val();
         if(val) {
             $(".cell").css('borderColor', '#' + val);
