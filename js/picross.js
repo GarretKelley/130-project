@@ -42,13 +42,13 @@ var stopwatch = (function() {
 var gameBoard = {};
 
 function didWin() {
-    var $cells = $('.cell');
-    var IDs = Object.keys(gameBoard);
-    if (IDs.length !== $cells.length) {
-        return false;  // can't win if all cells aren't selected
+    var $wrong = $('span.wrong');
+    if ($wrong.length) {
+        return false;
     }
-    for (var i = 0; i < IDs.length; i++) {
-        if ($('#' + IDs[i]).attr('data-val') != gameBoard[IDs[i]]) {
+    var $elementCells = $('#cells div span[data-val="1"]');
+    for (var i = 0; i < $elementCells.length; i++) {
+        if (!gameBoard[$elementCells[i].id]) {
             return false;
         }
     }
@@ -65,7 +65,7 @@ $(function() {
     var mistakes = 0;
     var $gameCells = $('#cells span');
 
-    function handleClick($clickedCell, cellValue, backgroundColor) {
+    function handleClick($clickedCell, cellValue) {
         var id = $clickedCell.attr('id');
         var correctValue = $clickedCell.attr('data-val');
 
@@ -97,18 +97,6 @@ $(function() {
                 alert('you win!');
             }
         }
-
-        // add turn
-        // if left click, put yes class
-        // if right click, put no class
-        // if wrong, add mistake put wrong class
-
-        // left click + correct = add turn, put yes class on
-        // left click + incorrect = add turn, add mistake, put yes and wrong class on
-        // right click + correct = add turn, put no class on
-        // right click + incorrect = add turn, add mistake, put no and wrong class on
-        // win condition = length yes classes === length elements, and no wrong class on
-
     }
 
     $gameCells.on('click', function() {
