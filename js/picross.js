@@ -59,43 +59,86 @@ function didWin() {
 // starts the timer and increments turns
 // determines correct / incorrect moves, score
 $(function() {
-    var $counter = $('#turnsCounter');
-    var counter = 0;
+    var $turnCounter = $('#turnsCounter');
+    var turnCounter = 0;
     var $mistakes = $('#mistakesCounter');
     var mistakes = 0;
-    var numCells = $('.cell').length;
+    var $gameCells = $('#cells span');
 
     function handleClick($clickedCell, cellValue, backgroundColor) {
         var id = $clickedCell.attr('id');
         var correctValue = $clickedCell.attr('data-val');
 
-        $clickedCell.css('background-color', backgroundColor);
         if (!stopwatch.started) {
             stopwatch.start('.stopwatch');
         }
 
         if (gameBoard[id] !== cellValue) {
-            counter += 1;
-            $counter.text(counter);
+            turnCounter += 1;
+            $turnCounter.text(turnCounter);
+
+            if (cellValue) {  // left click
+                $clickedCell.removeClass('no').addClass('yes');
+            } else {
+                $clickedCell.removeClass('yes').addClass('no');
+            }
+
             if (cellValue != correctValue) {
                 mistakes += 1;
                 $mistakes.text(mistakes);
+                $clickedCell.addClass('wrong');
+            } else {
+                $clickedCell.removeClass('wrong');
             }
+
             gameBoard[id] = cellValue;
             // win condition
             if (didWin()) {
                 alert('you win!');
             }
         }
+
+        // add turn
+        // if left click, put yes class
+        // if right click, put no class
+        // if wrong, add mistake put wrong class
+
+        // left click + correct = add turn, put yes class on
+        // left click + incorrect = add turn, add mistake, put yes and wrong class on
+        // right click + correct = add turn, put no class on
+        // right click + incorrect = add turn, add mistake, put no and wrong class on
+        // win condition = length yes classes === length elements, and no wrong class on
+
     }
 
-    $('.gameTable td.cell').on('click', function() {
-        handleClick($(this), true, '#0000FF');
+    $gameCells.on('click', function() {
+        handleClick($(this), true);
     });
 
-    $('.gameTable td.cell').on('contextmenu', function(event) {
-        handleClick($(this), false, '#A9A9A9');
+    $gameCells.on('contextmenu', function(event) {
+        handleClick($(this), false);
         event.preventDefault();
+    });
+
+    // change cell colors
+    $('#bColorOptions').change(function() {
+        var val = $(this).val();
+        if (val) {
+            $(".cell").each(function() {
+                var $cell = $(this);
+                if (!gameBoard.hasOwnProperty($cell.attr('id'))) {
+                    $cell.css('backgroundColor', '#' + val);
+                }
+            });
+        }
+    });
+
+    // change grid color
+    $('#gColorOptions').change(function(){
+        var val = $(this).val();
+        if(val) {
+            $(".cell").css('borderColor', '#' + val);
+        }
     });
 });
 
@@ -123,28 +166,3 @@ $(function(){
     });
 });
 */
-
-// change cell colors
-$(function() {
-    $('#bColorOptions').change(function() {
-        var val = $(this).val();
-        if (val) {
-            $(".cell").each(function() {
-                var $cell = $(this);
-                if (!gameBoard.hasOwnProperty($cell.attr('id'))) {
-                    $cell.css('backgroundColor', '#' + val);
-                }
-            });
-        }
-    });
-});
-
-// change grid colors
-$(function() {
-    $('#gColorOptions').change(function(){
-        var val = $(this).val();
-        if(val) {
-            $(".cell").css('borderColor', '#' + val);
-        }
-    });
-});

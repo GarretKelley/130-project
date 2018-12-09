@@ -65,38 +65,43 @@ if (isset($_GET['size']) && in_array($_GET['size'], ['0', '1'])) {
 				</div>
 			</div>
 			<div id="puzzle">
-				<table class="gameTable">
-					<?php
+				<?php
 
-					function outputLevel($level) {
-						// Header
-						echo("<tr class=\"top\"><th></th>");
-						for ($i = 0; $i < count($level); $i++) {
-							$counts = join(" ", getCounts(array_column($level, $i)));
-							echo("<th class=\"key top\">$counts</th>");
-						}
-						echo("</tr>");
-
-						foreach($level as $rowIndex => $row) {
-							echo("<tr>");
-							$counts = join(" ", getCounts($row));
-							echo("<th class=\"key left\">$counts</th>");
-							foreach($row as $colIndex => $value) {
-								echo("<td class=\"cell\" id=\"$rowIndex-$colIndex\" data-val=\"$value\"></td>");
-							}
-							echo("</tr>");
-						}
+				function outputLevel($level) {
+					// Header
+					echo("<div></div><div class=\"top\">");
+					for ($i = 0; $i < count($level); $i++) {
+						$counts = join(" ", getCounts(array_column($level, $i)));
+						echo("<div><pre>$counts</pre></div>");
 					}
+					echo("</div>");
 
-					if (isset($_GET['mode']) && $_GET['mode'] === 'rand') {
-						$board = getRandomLevel();
-						outputLevel($board);
-					} else if (isset($_GET['mode']) && $_GET['mode'] === 'arcade') {
-						
+					echo("<div class=\"left\">");
+					foreach($level as $rowIndex => $row) {
+						$counts = join(" ", getCounts($row));
+						echo("<div><pre>$counts</pre></div>");
 					}
+					echo("</div>");
 
-					?>
-				</table>
+					echo("<div id=\"cells\">");
+					foreach($level as $rowIndex => $row) {
+						echo("<div>");
+						foreach($row as $colIndex => $value) {
+							echo("<span id=\"$rowIndex-$colIndex\" data-val=\"$value\"><div></div></span>");
+						}
+						echo("</div>");
+					}
+					echo("</div>");
+				}
+
+				if (isset($_GET['mode']) && $_GET['mode'] === 'rand') {
+					$board = getRandomLevel();
+					outputLevel($board);
+				} else if (isset($_GET['mode']) && $_GET['mode'] === 'arcade') {
+					
+				}
+
+				?>
 			</div>
 		</div>
 		<script type="text/javascript" src="js/picross.js"></script>
