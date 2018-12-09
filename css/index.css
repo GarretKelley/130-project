@@ -13,6 +13,29 @@
 	margin-left: 350px;
 }
 
+#buttons li {
+    float: left;
+    list-style: none;
+   text-align: center;
+   background-color: rgba(239, 238, 243, 0.918);
+   margin-left: 15px;
+   margin-right: 40px;
+   margin-bottom: 10px;
+    width: 80px;
+    line-height: 25px;
+}
+
+#buttons li a{
+  color:black;
+  display:block;
+  text-decoration:none;
+}
+#buttons li a:hover{
+  text-decoration: none;
+    color: #000000;
+    background-color: #544cbd;
+}
+
 .loginsetup {
 	margin-bottom: 15px;
 }

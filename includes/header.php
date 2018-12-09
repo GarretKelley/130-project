@@ -2,7 +2,7 @@
 
 include_once('php/connection.php');
 connectDB();
-
+ 
 ?>
 
 <!DOCTYPE html>
@@ -49,6 +49,11 @@ connectDB();
             echo("<a class=\"current\"><button>About the authors &raquo;</button></a>");
         } else {
             echo("<a href=\"about.php\"><button>About the authors &raquo;</button></a>");
+        }
+        if (preg_match('/leaderboards.php$/', $_SERVER['PHP_SELF'])) {
+            echo("<a class=\"current\"><button> Leaderboards &raquo;</button></a>");
+        } else {
+            echo("<a href=\"leaderboards.php\"><button>Leaderboards &raquo;</button></a>");
         }
         if ($GLOBALS['is_logged_in']) {
             if (preg_match('/game.php$/', $_SERVER['PHP_SELF'])) {

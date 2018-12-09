@@ -34,4 +34,9 @@ body {
 	text-align: left;
 	margin-right: 100px;
 	margin-left: 100px;
+	height: 400px;
+}
+
+#image {
+	float:right;
 }

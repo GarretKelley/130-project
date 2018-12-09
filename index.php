@@ -28,7 +28,7 @@ include('includes/header.php');
 				showLogin();
 			});
 		</script>
-		<ul>
+		<ul id="buttons">
 			<li>
 				<a href="javascript:showLogin()">Sign in</a>
 			</li>
