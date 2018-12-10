@@ -2,7 +2,7 @@ var stopwatch = (function() {
     var _this = this;
     var intervalID;
     var $clock;
-    var timeElapsed = 0;
+    _this.timeElapsed = 0;
     _this.started = false;
 
     /**
@@ -24,8 +24,8 @@ var stopwatch = (function() {
      * @returns {String} Formatted time.
      */
     this.incrementTime = function() {
-        timeElapsed += 1000;
-        return new Date(timeElapsed).toISOString().slice(11, -5);
+        _this.timeElapsed += 1000;
+        return new Date(_this.timeElapsed).toISOString().slice(11, -5);
     };
 
     /**
@@ -53,6 +53,20 @@ function didWin() {
         }
     }
     return true;
+}
+    
+function showWinModal(mistakes) {
+    var numNonSpaceCells = $('#cells div span[data-val="1"]').length;
+    var score = Math.max((numNonSpaceCells - mistakes), 0) / numNonSpaceCells;
+    var total = score;
+    $('#final-score').val(score);
+    $('#final-time').val(stopwatch.timeElapsed);
+    $('#final-score-text').text(score);
+    $('#win-message').css('display', 'flex');
+    $('.level-score').each(function() {
+        total += Number($(this).text());
+    })
+    $('#total-score-text').text(total);
 }
     
 // turns any cell clicked on blue, and right-clicked to grey. 
@@ -94,7 +108,7 @@ $(function() {
             gameBoard[id] = cellValue;
             // win condition
             if (didWin()) {
-                alert('you win!');
+                showWinModal(mistakes);
             }
         }
     }

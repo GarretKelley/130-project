@@ -1,15 +1,32 @@
 <?php
 
+$size = (isset($_GET['size']) && in_array($_GET['size'], ['0', '1'])) ? (int)$_GET['size'] : 0;
+$levelNum = (isset($_GET['level'])) ? (int)$_GET['level'] : 0;
+
+if (isset($_GET['mode'])) {
+	$mode = $_GET['mode'];
+	session_start();
+	if ($levelNum === 0) {
+		// Clear the session information if it is the start of the series.
+		unset($_SESSION['level_score']);
+	}
+
+	if ($levelNum !== 0) {
+		foreach(range(0, $levelNum - 1) as $l) {
+			// Redirect to first level if no scores are saved for any previous level
+			if (!isset($_SESSION['level_score']) || !array_key_exists($l, $_SESSION['level_score'])) {
+				header("Location: game.php?mode=$mode&level=0&size=$size");
+			}
+		}
+	}
+} else {
+	$mode = 'practice';
+}
+
 include('includes/check-token.php');
 validateToken(true);
 include('includes/header.php');
 include('php/levelFunctions.php');
-
-if (isset($_GET['size']) && in_array($_GET['size'], ['0', '1'])) {
-	$GLOBALS['size'] = (int)$_GET['size'];
-} else {
-	$GLOBALS['size'] = 0;
-}
 
 ?>
 		<div class="container">
@@ -17,6 +34,16 @@ if (isset($_GET['size']) && in_array($_GET['size'], ['0', '1'])) {
 				<h1 class="title">
 					PICROSS
 				</h1>
+				<h4>
+					<?php 
+					
+					echo(ucfirst($mode));
+					if ($mode !== 'practice') {
+						echo(" - Level ".($levelNum + 1));
+					}
+
+					?>
+				</h4>
 				<div class="control-group">
 					<h3>Time</h3>
 					<div class="stopwatch">00:00:00</div>
@@ -54,13 +81,25 @@ if (isset($_GET['size']) && in_array($_GET['size'], ['0', '1'])) {
 				<div class="control-group">
 					<label for="gSize">Grid Size</label>
 					<select id="gSize">
-						<option <?php if ($GLOBALS['size'] === 0) { echo('selected'); } ?> value="0">7x7</option>
-						<option <?php if ($GLOBALS['size'] === 1) { echo('selected'); } ?> value="1">13x13</option>
+						<option <?php if ($size === 0) { echo('selected'); } ?> value="0">7x7</option>
+						<option <?php if ($size === 1) { echo('selected'); } ?> value="1">13x13</option>
 					</select>
 					<div class ="buttons">
-						<button id="new">New Game &raquo;</button>
-						<button id="arcade">Arcade Mode</button>
-						<button id="timed">Time Attack</button>
+						<script type="text/javascript">
+							function goPractice() {
+								location.href = 'game.php?size=' + $('#gSize').val();
+							}
+							function goArcade() {
+								location.href = 'game.php?mode=arcade&level=0&size=' + $('#gSize').val();
+							}
+						</script>
+						<a href="javascript:goPractice()">
+							<button id="new">Practice &raquo;</button>
+						</a>
+						<a href="javascript:goArcade()">
+							<button id="arcade">Arcade Mode &raquo;</button>
+						</a>
+						<button id="timed">Time Attack &raquo;</button>
 					</div>
 				</div>
 			</div>
@@ -94,14 +133,50 @@ if (isset($_GET['size']) && in_array($_GET['size'], ['0', '1'])) {
 					echo("</div>");
 				}
 
-				if (isset($_GET['mode']) && $_GET['mode'] === 'rand') {
-					$board = getRandomLevel();
-					outputLevel($board);
-				} else if (isset($_GET['mode']) && $_GET['mode'] === 'arcade') {
-					
+				if (isset($_GET['mode']) && $_GET['mode'] === 'arcade') {
+					$board = getLevel($size, $levelNum);
+				} else {
+					$board = getRandomLevel($size);
+				}
+				outputLevel($board);
+
+				?>
+			</div>
+		</div>
+		<div id="win-message" style="display: none;">
+			<div>
+				<?php
+
+				if (isset($_SESSION['level_score'])) {
+					foreach($_SESSION['level_score'] as $l => $s) {
+						$lvl = $l + 1;
+						echo("<div>Level $lvl score: <span class=\"level-score\">$s</span></div>");
+					}
 				}
 
 				?>
+				<div style="margin-top: 30px;">
+					Score: <span id="final-score-text"></span>
+				</div>
+				<div style="margin-top: 10px;">
+					Total Score: <span id="total-score-text"></span>
+				</div>
+				<form class="buttons" action="nextlevel.php" method="post">
+					<input id="final-score" name="score" style="display: none;"/>
+					<input id="final-time" name="time" style="display: none;"/>
+					<input name="num" style="display: none;" value="<?php echo($levelNum) ?>"/>
+					<input name="mode" style="display: none;" value="<?php echo($mode) ?>"/>
+					<input name="size" style="display: none;" value="<?php echo($size) ?>"/>
+					<button type="submit">
+					<?php
+						if ($levelNum === 2) {
+							echo("Save Game");
+						} else {
+							echo("Next Level");
+						}
+					?>
+					</button>
+				</form>
 			</div>
 		</div>
 		<script type="text/javascript" src="js/picross.js"></script>

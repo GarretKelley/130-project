@@ -180,3 +180,34 @@ h1 {
 	/*background-color: #F7D35875;*/
 	box-shadow: 0 0 5px 2px #FF8000 inset;
 }
+
+#win-message {
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	background-color: #0006;
+}
+
+#win-message > div {
+	display: flex;
+	flex-direction: column;
+	font-size: 16px;
+	height: 150px;
+	width: 500px;
+	margin: auto;
+	padding: 30px;
+	background-color: white;
+	box-shadow: 5px 5px 10px #0007;
+}
+
+#win-message form {
+	position: relative;
+	width: 100%;
+}
+
+#win-message button {
+	position: absolute;
+	right: 0;
+}

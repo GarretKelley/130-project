@@ -20,8 +20,11 @@ header {
     display: flex;
 }
 
-.buttons a {
+header .buttons a {
     margin-right: 15px;
+}
+
+.buttons a {
     text-decoration: none;
 }
 
