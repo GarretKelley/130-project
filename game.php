@@ -3,7 +3,7 @@
 $size = (isset($_GET['size']) && in_array($_GET['size'], ['0', '1'])) ? (int)$_GET['size'] : 0;
 $levelNum = (isset($_GET['level'])) ? (int)$_GET['level'] : 0;
 
-if (isset($_GET['mode'])) {
+if (isset($_GET['mode']) && in_array($_GET['mode'], ['arcade', 'rand'])) {
 	$mode = $_GET['mode'];
 	session_start();
 	if ($levelNum === 0) {
@@ -158,25 +158,37 @@ include('php/levelFunctions.php');
 				<div style="margin-top: 30px;">
 					Score: <span id="final-score-text"></span>
 				</div>
-				<div style="margin-top: 10px;">
-					Total Score: <span id="total-score-text"></span>
-				</div>
-				<form class="buttons" action="nextlevel.php" method="post">
-					<input id="final-score" name="score" style="display: none;"/>
-					<input id="final-time" name="time" style="display: none;"/>
-					<input name="num" style="display: none;" value="<?php echo($levelNum) ?>"/>
-					<input name="mode" style="display: none;" value="<?php echo($mode) ?>"/>
-					<input name="size" style="display: none;" value="<?php echo($size) ?>"/>
-					<button type="submit">
-					<?php
-						if ($levelNum === 2) {
-							echo("Save Game");
-						} else {
-							echo("Next Level");
-						}
-					?>
-					</button>
-				</form>
+				<?php 
+				if ($mode !== 'practice') {
+					echo('
+					<div style="margin-top: 10px;">
+						Total Score: <span id="total-score-text"></span>
+					</div>
+					<form class="buttons" action="nextlevel.php" method="post">
+						<input id="final-score" name="score" style="display: none;"/>
+						<input id="final-time" name="time" style="display: none;"/>
+						<input name="num" style="display: none;" value="<?php echo($levelNum) ?>"/>
+						<input name="mode" style="display: none;" value="<?php echo($mode) ?>"/>
+						<input name="size" style="display: none;" value="<?php echo($size) ?>"/>
+						<button type="submit">
+						<?php
+							if ($levelNum === 2) {
+								echo("Save Game");
+							} else {
+								echo("Next Level");
+							}
+						?>
+						</button>
+					</form>');
+				} else {
+					echo('
+					<div class="buttons">
+						<a href="javascript:location.href = location.href">
+							<button>Continue</button>
+						</a>
+					</div>');
+				}
+				?>
 			</div>
 		</div>
 		<script type="text/javascript" src="js/picross.js"></script>

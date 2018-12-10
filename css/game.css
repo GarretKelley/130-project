@@ -202,7 +202,7 @@ h1 {
 	box-shadow: 5px 5px 10px #0007;
 }
 
-#win-message form {
+#win-message .buttons {
 	position: relative;
 	width: 100%;
 }
