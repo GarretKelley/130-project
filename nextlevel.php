@@ -20,7 +20,7 @@ if ($nextLevel > 2) {
     include('includes/check-token.php');
     validateToken(true);
     include('php/gameFunctions.php');
-    insertSeriesScore($GLOBALS['user_id'], $size, array_sum($_SESSION['level_time']), array_sum($_SESSION['level_score']));
+    insertSeriesScore($GLOBALS['user_id'], $mode, $size, array_sum($_SESSION['level_time']), array_sum($_SESSION['level_score']));
     session_destroy();
     header("Location: leaderboards.php");
 } else {

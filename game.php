@@ -36,8 +36,10 @@ include('php/levelFunctions.php');
 				</h1>
 				<h4>
 					<?php 
+
+					$modeTitle = ($mode === 'rand') ? 'Time Attack' : $mode;
 					
-					echo(ucfirst($mode));
+					echo(ucfirst($modeTitle));
 					if ($mode !== 'practice') {
 						echo(" - Level ".($levelNum + 1));
 					}
@@ -92,6 +94,9 @@ include('php/levelFunctions.php');
 							function goArcade() {
 								location.href = 'game.php?mode=arcade&level=0&size=' + $('#gSize').val();
 							}
+							function goRand() {
+								location.href = 'game.php?mode=rand&level=0&size=' + $('#gSize').val();
+							}
 						</script>
 						<a href="javascript:goPractice()">
 							<button id="new">Practice &raquo;</button>
@@ -99,7 +104,9 @@ include('php/levelFunctions.php');
 						<a href="javascript:goArcade()">
 							<button id="arcade">Arcade Mode &raquo;</button>
 						</a>
-						<button id="timed">Time Attack &raquo;</button>
+						<a href="javascript:goRand()">
+							<button id="timed">Time Attack &raquo;</button>
+						</a>
 					</div>
 				</div>
 			</div>
@@ -159,8 +166,8 @@ include('php/levelFunctions.php');
 					Score: <span id="final-score-text"></span>
 				</div>
 				<?php 
-				if ($mode !== 'practice') {
-					echo('
+				if ($mode !== 'practice') { 
+				?>
 					<div style="margin-top: 10px;">
 						Total Score: <span id="total-score-text"></span>
 					</div>
@@ -179,14 +186,16 @@ include('php/levelFunctions.php');
 							}
 						?>
 						</button>
-					</form>');
-				} else {
-					echo('
+					</form>
+				<?php
+				} else { 
+				?>
 					<div class="buttons">
 						<a href="javascript:location.href = location.href">
 							<button>Continue</button>
 						</a>
-					</div>');
+					</div>
+				<?php
 				}
 				?>
 			</div>
