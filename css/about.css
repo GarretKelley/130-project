@@ -12,9 +12,8 @@ html {
 	border-radius: 5px;
 	box-shadow: inset 0px 1px 3px #999;
 	text-align: center;
-	margin-right: 560px;
-	margin-left: 560px;
-	margin-bottom: 30px;
+	width: 200px;
+	margin: auto;
 }
 
 body {
@@ -22,10 +21,12 @@ body {
 	font-size: 13px;
 	background-color: #e7e7e7b9;
 	height: 100%;
+	margin: auto;
 }
 
 .bio {
 	font-size: 20px;
+	margin-top: 120px;
 	margin-right: 120px;
 	margin-left: 120px;
 	border-bottom: 2px solid #fff;
@@ -34,6 +35,8 @@ body {
 	border-radius: 5px;
 	box-shadow: inset 0px 1px 3px #999;
 	text-align: center;
+	width: 600px;
+	margin: auto;
 }
 
 .footer {
