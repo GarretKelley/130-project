@@ -25,7 +25,7 @@ var stopwatch = (function() {
      */
     this.incrementTime = function() {
         _this.timeElapsed += 1000;
-        return new Date(_this.timeElapsed).toISOString().slice(11, -5);
+        return new Date(_this.timeElapsed).toISOString().slice(14, -5);
     };
 
     /**

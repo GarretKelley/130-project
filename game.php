@@ -48,7 +48,7 @@ include('php/levelFunctions.php');
 				</h4>
 				<div class="control-group">
 					<h3>Time</h3>
-					<div class="stopwatch">00:00:00</div>
+					<div class="stopwatch">00:00</div>
 					<h3>Turns</h3>
 					<span id="turnsCounter">0</span>
 					<h3>Mistakes</h3>
