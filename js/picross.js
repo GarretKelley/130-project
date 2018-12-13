@@ -64,9 +64,11 @@ function showWinModal(mistakes) {
     var numNonSpaceCells = $('#cells div span[data-val="1"]').length;
     var score = Math.max((numNonSpaceCells - mistakes), 0) / numNonSpaceCells;
     var total = score;
+    stopwatch.stop();
     $('#final-score').val(score);
     $('#final-time').val(stopwatch.timeElapsed);
     $('#final-score-text').text(score);
+    $('#final-time-text').text(new Date(stopwatch.timeElapsed).toISOString().slice(14, -5));
     $('#win-message').css('display', 'flex');
     $('.level-score').each(function() {
         total += Number($(this).text());
@@ -147,25 +149,35 @@ $(function() {
 
     // suggest best
     var $randomGood;
+    var className;
     $('#suggest-best').on('click', function() {
-        if (!$randomGood || !$randomGood.is(':not(.yes)[data-val="1"]')) {
-            $randomGood = $(getRandom($gameCells.filter(':not(.yes)[data-val="1"]')));
+        if (!$randomGood || !$randomGood.is('#cells span:not(.no,.yes)[data-val="1"], #cells span.wrong')) {
+            $randomGood = $(getRandom($gameCells.filter('#cells span:not(.no,.yes)[data-val="1"]')));
+            className = 'suggest-yes';
         }
-        $randomGood.addClass('suggest-yes');
+        if ($randomGood.length === 0) {
+            $randomGood = $(getRandom($gameCells.filter('#cells span.wrong')));
+            className = ($randomGood.is('[data-val="0"]')) ? 'suggest-no' : 'suggest-yes';
+        }
+        $randomGood.addClass(className);
         setTimeout(function() {
-            $randomGood.removeClass('suggest-yes');
+            $randomGood.removeClass(className);
         }, 500);
     });
 
     // suggest worst
     var $randomWorst;
     $('#suggest-worst').on('click', function() {
-        if (!$randomWorst || !$randomWorst.is(':not(.no)[data-val="0"]')) {
-            $randomWorst = $(getRandom($gameCells.filter(':not(.no)[data-val="0"]')));
+        if (!$randomWorst || !$randomWorst.is('#cells span:not(.no,.yes), #cells span:not(.wrong)')) {
+            $randomWorst = $(getRandom($gameCells.filter('#cells span:not(.no,.yes), #cells span:not(.wrong)')));
         }
-        $randomWorst.addClass('suggest-no');
+        if ($randomWorst.attr('data-val') === '0') {
+            $randomWorst.addClass('suggest-yes');
+        } else {
+            $randomWorst.addClass('suggest-no');
+        }
         setTimeout(function() {
-            $randomWorst.removeClass('suggest-no');
+            $randomWorst.removeClass('suggest-no').removeClass('suggest-yes');
         }, 500);
     });
 

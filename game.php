@@ -168,6 +168,7 @@ include('php/levelFunctions.php');
 
 				?>
 				<div style="margin-top: 30px;">
+					Time: <span id="final-time-text"></span><br/>
 					Score: <span id="final-score-text"></span>
 				</div>
 				<?php 

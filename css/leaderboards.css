@@ -7,8 +7,8 @@ table {
     float:left;
     border-collapse: collapse;
     border-spacing: 0.2em;
-    width: 280px;
-    margin-top: 50px;
+    width: 24%;
+    margin-top: 100px;
     margin-left: 10px;
     text-align: center;
 }
@@ -36,4 +36,8 @@ th.vtop, td.vtop {
 
 th.vbottom, td.vbottom {
     vertical-align: bottom;
+}
+
+.item img {
+    height: 20px;
 }

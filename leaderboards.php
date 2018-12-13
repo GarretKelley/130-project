@@ -6,22 +6,25 @@ include('includes/header.php');
 
 ?>
         <script src="https://www.w3schools.com/lib/w3.js"></script>
+        <div>
         <table id = "Arcade7Table">
             <caption> Arcade Mode 7x7 leaderboards </caption>
             <tr>
+                <th>Profile Pic</th>
                 <th onclick="w3.sortHTML('#Arcade7Table', '.item', 'td:nth-child(1)')" style="cursor:pointer">Player</th>
                 <th onclick="w3.sortHTML('#Arcade7Table', '.item', 'td:nth-child(2)')" style="cursor:pointer">Score</th>
                 <th onclick="w3.sortHTML('#Arcade7Table', '.item', 'td:nth-child(3)')" style="cursor:pointer">Time</th>
             </tr>
             <?php
                 $connection = connectDB();
-                $db_grab = "SELECT players.username, games.duration, games.score FROM
+                $db_grab = "SELECT players.ID, players.username, games.duration, games.score FROM
                             players INNER JOIN games ON players.ID = games.player_id
                             WHERE games.level_mode='arcade' AND games.level_size=0
                             ORDER BY games.score DESC";
                 $query = mysqli_query($connection, $db_grab);
                 while ($row = mysqli_fetch_array($query)) { ?>
                     <tr class="item">
+                    <td><?php echo '<img src="/130-project/profile-pics/'.$row['ID'].'.jpg"/>'; ?></td>
                     <td><?php echo $row['username'];?></td>
                     <td><?php echo $row['score'];?></td>
                     <td><?php 
@@ -35,19 +38,21 @@ include('includes/header.php');
         <table id = "Arcade13Table">
             <caption> Arcade Mode 13x13 leaderboards </caption>
             <tr>
+                <th>Profile Pic</th>
                 <th onclick="w3.sortHTML('#Arcade13Table', '.item', 'td:nth-child(1)')" style="cursor:pointer">Player</th>
                 <th onclick="w3.sortHTML('#Arcade13Table', '.item', 'td:nth-child(2)')" style="cursor:pointer">Score</th>
                 <th onclick="w3.sortHTML('#Arcade13Table', '.item', 'td:nth-child(3)')" style="cursor:pointer">Time</th>
             </tr>
             <?php
                 $connection = connectDB();
-                $db_grab = "SELECT players.username, games.duration, games.score FROM
+                $db_grab = "SELECT players.ID, players.username, games.duration, games.score FROM
                             players INNER JOIN games ON players.ID = games.player_id
                             WHERE games.level_mode='arcade' AND games.level_size=1
                             ORDER BY games.score DESC";
                 $query = mysqli_query($connection, $db_grab);
                 while ($row = mysqli_fetch_array($query)) { ?>
                     <tr class="item">
+                    <td><?php echo '<img src="/130-project/profile-pics/'.$row['ID'].'.jpg"/>'; ?></td>
                     <td><?php echo $row['username'];?></td>
                     <td><?php echo $row['score'];?></td>
                     <td><?php 
@@ -61,19 +66,21 @@ include('includes/header.php');
         <table id = "Time7Table">
             <caption> Time attack 7x7 leaderboards </caption>
             <tr>
+                <th>Profile Pic</th>
                 <th onclick="w3.sortHTML('#Time7Table', '.item', 'td:nth-child(1)')" style="cursor:pointer">Player</th>
                 <th onclick="w3.sortHTML('#Time7Table', '.item', 'td:nth-child(2)')" style="cursor:pointer">Score</th>
                 <th onclick="w3.sortHTML('#Time7Table', '.item', 'td:nth-child(3)')" style="cursor:pointer">Time</th>
             </tr>
             <?php
                 $connection = connectDB();
-                $db_grab = "SELECT players.username, games.duration, games.score FROM
+                $db_grab = "SELECT players.ID, players.username, games.duration, games.score FROM
                             players INNER JOIN games ON players.ID = games.player_id
                             WHERE games.level_mode='rand' AND games.level_size=0
                             ORDER BY games.score DESC";
                 $query = mysqli_query($connection, $db_grab);
                 while ($row = mysqli_fetch_array($query)) { ?>
                     <tr class="item">
+                    <td><?php echo '<img src="/130-project/profile-pics/'.$row['ID'].'.jpg"/>'; ?></td>
                     <td><?php echo $row['username'];?></td>
                     <td><?php echo $row['score'];?></td>
                     <td><?php 
@@ -87,19 +94,21 @@ include('includes/header.php');
         <table id = "Time13Table">
             <caption> Time attack 13x13 leaderboards </caption>
             <tr>
+                <th>Profile Pic</th>
                 <th onclick="w3.sortHTML('#Time13Table', '.item', 'td:nth-child(1)')" style="cursor:pointer">Player</th>
                 <th onclick="w3.sortHTML('#Time13Table', '.item', 'td:nth-child(2)')" style="cursor:pointer">Score</th>
                 <th onclick="w3.sortHTML('#Time13Table', '.item', 'td:nth-child(3)')" style="cursor:pointer">Time</th>
             </tr>
             <?php
                 $connection = connectDB();
-                $db_grab = "SELECT players.username, games.duration, games.score FROM
+                $db_grab = "SELECT players.ID, players.username, games.duration, games.score FROM
                             players INNER JOIN games ON players.ID = games.player_id
                             WHERE games.level_mode='rand' AND games.level_size=1
                             ORDER BY games.score DESC";
                 $query = mysqli_query($connection, $db_grab);
                 while ($row = mysqli_fetch_array($query)) { ?>
                     <tr class="item">
+                    <td><?php echo '<img src="/130-project/profile-pics/'.$row['ID'].'.jpg"/>'; ?></td>
                     <td><?php echo $row['username'];?></td>
                     <td><?php echo $row['score'];?></td>
                     <td><?php 
@@ -110,5 +119,6 @@ include('includes/header.php');
                     </tr>
                 <?php } ?>
         </table>
+        </div>
 	</body>
 </html>

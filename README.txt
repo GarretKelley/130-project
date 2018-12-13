@@ -10,7 +10,7 @@ first, making a user account for the database.
  	scroll down and click on 'check all' next to global privileges
 
 second, creating the database and tables. 
-name: 130_project
+name: 130_project_davidp_garretk
 
 3 tables
 CREATE TABLE Players (
@@ -28,11 +28,12 @@ CREATE TABLE Games (
     ID INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     player_id INT UNSIGNED NOT NULL,
 	level_mode VARCHAR(64) NOT NULL,
-	level_sizze TINYINT UNSIGNED NOT NULL,
+	level_size TINYINT(1) UNSIGNED NOT NULL,
     duration INT UNSIGNED NOT NULL,
     score FLOAT UNSIGNED NOT NULL,
     FOREIGN KEY (player_id) REFERENCES Players(ID)
 );
+
 CREATE TABLE Levels (
     ID INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     size BOOL NOT NULL,
