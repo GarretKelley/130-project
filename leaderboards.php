@@ -6,7 +6,6 @@ include('includes/header.php');
 
 ?>
         <script src="https://www.w3schools.com/lib/w3.js"></script>
-        <link href="https://www.w3schools.com/w3css/4/w3.css" rel="stylesheet" />
         <table id = "Arcade7Table">
             <caption> Arcade Mode 7x7 leaderboards </caption>
             <tr>
@@ -18,7 +17,8 @@ include('includes/header.php');
                 $connection = connectDB();
                 $db_grab = "SELECT players.username, games.duration, games.score FROM
                             players INNER JOIN games ON players.ID = games.player_id
-                            WHERE games.level_mode='arcade' AND games.level_size=0";
+                            WHERE games.level_mode='arcade' AND games.level_size=0
+                            ORDER BY games.score DESC";
                 $query = mysqli_query($connection, $db_grab);
                 while ($row = mysqli_fetch_array($query)) { ?>
                     <tr class="item">
@@ -43,7 +43,8 @@ include('includes/header.php');
                 $connection = connectDB();
                 $db_grab = "SELECT players.username, games.duration, games.score FROM
                             players INNER JOIN games ON players.ID = games.player_id
-                            WHERE games.level_mode='arcade' AND games.level_size=1";
+                            WHERE games.level_mode='arcade' AND games.level_size=1
+                            ORDER BY games.score DESC";
                 $query = mysqli_query($connection, $db_grab);
                 while ($row = mysqli_fetch_array($query)) { ?>
                     <tr class="item">
@@ -68,7 +69,8 @@ include('includes/header.php');
                 $connection = connectDB();
                 $db_grab = "SELECT players.username, games.duration, games.score FROM
                             players INNER JOIN games ON players.ID = games.player_id
-                            WHERE games.level_mode='rand' AND games.level_size=0";
+                            WHERE games.level_mode='rand' AND games.level_size=0
+                            ORDER BY games.score DESC";
                 $query = mysqli_query($connection, $db_grab);
                 while ($row = mysqli_fetch_array($query)) { ?>
                     <tr class="item">
@@ -93,7 +95,8 @@ include('includes/header.php');
                 $connection = connectDB();
                 $db_grab = "SELECT players.username, games.duration, games.score FROM
                             players INNER JOIN games ON players.ID = games.player_id
-                            WHERE games.level_mode='rand' AND games.level_size=1";
+                            WHERE games.level_mode='rand' AND games.level_size=1
+                            ORDER BY games.score DESC";
                 $query = mysqli_query($connection, $db_grab);
                 while ($row = mysqli_fetch_array($query)) { ?>
                     <tr class="item">
