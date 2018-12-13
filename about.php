@@ -5,12 +5,16 @@ validateToken(false);
 include('includes/header.php');
 
 ?>
-		<div class = "header"> About the author </div>
-		<p class = "bio">
-			Hello! I'm a soon to be graduate of California State University, Fresno. 
-			This game, and its related webpages and database, were part of a web-design project.
-			It's not very good looking, but it works as intended*. Thank you for reading this short bio.
-		</p>
-		<div class="footer"> and thanks for checking out my game!</div>
+		<article class = "bio">
+			<section aria-label="about the Authors.">
+				<h5 class ="header"> About the authors </h5>
+				<p>
+					We are a team of 2 soon to be graduates of California State University, Fresno. <br />
+					The webpages, the game, the database - everything you see here is part of a web-design project. <br />
+					Thank you for reading this short bio*.
+				</p>
+			</section>
+			<div class="footer"> * and thanks for checking out the game!</div>
+		</article>
 	</body>
 </html>

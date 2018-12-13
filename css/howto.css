@@ -19,9 +19,8 @@ body {
 	border-radius: 5px;
 	box-shadow: inset 0px 1px 3px #999;
 	text-align: center;
-	margin-right: 510px;
-	margin-left: 510px;
-	margin-bottom: 30px;
+	width: 200px;
+	margin: auto;
 }
 
 .howto {
@@ -32,9 +31,10 @@ body {
 	border-radius: 5px;
 	box-shadow: inset 0px 1px 3px #999;
 	text-align: left;
-	margin-right: 100px;
-	margin-left: 100px;
-	height: 400px;
+	height: 500px;
+	width: 700px;
+	margin-top: 800px;
+	margin: 0 auto;
 }
 
 #image {
