@@ -25,8 +25,17 @@ include('includes/header.php');
                     <td></td>
                     <td><?php echo $row['username'];?></td>
                     <td><?php echo $row['score'];?></td>
-                    <td><?php echo $row['duration'];?></td>
-                    <td><?php echo $row['level_size'];?></td>
+                    <td><?php 
+                        echo floor($row['duration']/60000);
+                        echo ":";
+                        echo floor(($row['duration']-($row['duration']/60000))/1000); 
+                    ?></td>
+                    <td><?php 
+                        if ($row['level_size'] == 0)
+                            echo "7x7";
+                        else if ($row['level_size'] == 1)
+                            echo "13x13";
+                    ?></td>
                     </tr>
                 <?php } ?>
         </table>
