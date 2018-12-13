@@ -126,7 +126,7 @@ $(function() {
     $('#bColorOptions').change(function() {
         var val = $(this).val();
         if (val) {
-            $(".cell").each(function() {
+            $gameCells.each(function() {
                 var $cell = $(this);
                 if (!gameBoard.hasOwnProperty($cell.attr('id'))) {
                     $cell.css('backgroundColor', '#' + val);
@@ -139,32 +139,7 @@ $(function() {
     $('#gColorOptions').change(function(){
         var val = $(this).val();
         if(val) {
-            $(".cell").css('borderColor', '#' + val);
+            $('#puzzle .top div, #puzzle .left div, #puzzle #cells span').css('borderColor', '#' + val);
         }
     });
 });
-
-/* potential start point to generate grid using js
-$(function(){
-    var sizes = [{
-        display: "7x7",
-        value: "7"
-    }, {
-        display: "13x13",
-        value: "13"
-    }];
-    var options = ['<option value="">Select size</option>'];
-    
-    for(var i = 0; i < colors.length; i++){
-       options.push('<option value="');
-       options.push(colors[i].value);
-       options.push('">');
-       options.push(colors[i].display);
-       options.push('</option>');       
-    }
-    $('#gSize').html(options.join('')).change(function(){
-        var val = $(this).val();
-        // do something
-    });
-});
-*/
