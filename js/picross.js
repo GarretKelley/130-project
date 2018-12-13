@@ -68,7 +68,11 @@ function showWinModal(mistakes) {
     })
     $('#total-score-text').text(total);
 }
-    
+
+function getRandom(array) {
+    return array[Math.floor(Math.random() * array.length)];
+}
+
 // turns any cell clicked on blue, and right-clicked to grey. 
 // starts the timer and increments turns
 // determines correct / incorrect moves, score
@@ -141,5 +145,28 @@ $(function() {
         if(val) {
             $('#puzzle .top div, #puzzle .left div, #puzzle #cells span').css('borderColor', '#' + val);
         }
+    });
+
+    // suggest best
+    var $randomGood;
+    $('#suggest-best').on('click', function() {
+        if (!$randomGood || !$randomGood.is(':not(.yes)[data-val="1"]')) {
+            $randomGood = $(getRandom($gameCells.filter(':not(.yes)[data-val="1"]')));
+        }
+        $randomGood.addClass('suggest-yes');
+        setTimeout(function() {
+            $randomGood.removeClass('suggest-yes');
+        }, 500);
+    });
+
+    var $randomWorst;
+    $('#suggest-worst').on('click', function() {
+        if (!$randomWorst || !$randomWorst.is(':not(.no)[data-val="0"]')) {
+            $randomWorst = $(getRandom($gameCells.filter(':not(.no)[data-val="0"]')));
+        }
+        $randomWorst.addClass('suggest-no');
+        setTimeout(function() {
+            $randomWorst.removeClass('suggest-no');
+        }, 500);
     });
 });

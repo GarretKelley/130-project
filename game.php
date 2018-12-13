@@ -77,7 +77,8 @@ include('php/levelFunctions.php');
 						</select>
 					</div>
 					<div class ="buttons">
-						<button id="suggest">Suggest Best Move &raquo;</button>
+						<button id="suggest-best">Suggest Best Move &raquo;</button>
+						<button id="suggest-worst">Suggest Worst Move &raquo;</button>
 					</div>
 				</div>
 				<div class="control-group">

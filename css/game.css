@@ -162,11 +162,13 @@ h1 {
 	position: relative;
 }
 
-#puzzle #cells span.yes {
+#puzzle #cells span.yes,
+#puzzle #cells span.suggest-yes {
 	background-color: #4444ff;
 }
 
-#puzzle #cells span.no {
+#puzzle #cells span.no,
+#puzzle #cells span.suggest-no {
 	background-color: #a9a9a9;
 }
 
