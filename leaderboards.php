@@ -18,7 +18,7 @@ include('includes/header.php');
             <?php
                 $connection = connectDB();
                 $db_grab = "SELECT players.username, games.level_size, games.duration, games.score FROM
-                            players INNER JOIN games ON players.ID = games.ID";
+                            players INNER JOIN games ON players.ID = games.player_id";
                 $query = mysqli_query($connection, $db_grab);
                 while ($row = mysqli_fetch_array($query)) { ?>
                     <tr class="item">
