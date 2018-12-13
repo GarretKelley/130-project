@@ -38,15 +38,13 @@ include('includes/header.php');
 		</ul>
 		<div id="loginsetup">
 			<label for="username">Username:</label><input type="text" id="username"><br/>
-			<label for="password">Password:</label><input type="text" id="password"><br/>
+			<label for="password">Password:</label><input type="password" id="password"><br/>
 			<div id="create-info">
 				<label for="create-lastname">Lastname:</label><input type="text" id="create-lastname"><br/>
 				<label for="create-firstname">Firstname:</label><input type="text" id="create-firstname"><br/>
 				<label for="create-age">Age:</label><input type="text" id="create-age"><br/>
 				<label for="create-gender">Gender:</label><input type="text" id="create-gender"><br/>
 				<label for="create-location">Location:</label><input type="text" id="create-location"><br/>
-				<label for="create-username">Username:</label><input type="text" id="create-username"><br/>
-				<label for="create-password">Password:</label><input type="text" id="create-password"><br/>
 			</div>
 			<input type="submit" id="submit-info" value="Login"/>
 		</div>
@@ -61,9 +59,9 @@ include('includes/header.php');
 					return;
 				}
 
-				if (this.status === 200) {
+				if (this.status === 200 && isLogin) {
 					window.location = this.responseText;
-				} else if (this.status === 400) {
+				} else {
 					errorMsg.innerHTML = this.responseText;
 				}
 			};

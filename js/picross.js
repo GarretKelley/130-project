@@ -54,8 +54,13 @@ function didWin() {
     }
     return true;
 }
+
+var isCheating = false;
     
 function showWinModal(mistakes) {
+    if (isCheating) {
+        return;
+    }
     var numNonSpaceCells = $('#cells div span[data-val="1"]').length;
     var score = Math.max((numNonSpaceCells - mistakes), 0) / numNonSpaceCells;
     var total = score;
@@ -129,14 +134,7 @@ $(function() {
     // change cell colors
     $('#bColorOptions').change(function() {
         var val = $(this).val();
-        if (val) {
-            $gameCells.each(function() {
-                var $cell = $(this);
-                if (!gameBoard.hasOwnProperty($cell.attr('id'))) {
-                    $cell.css('backgroundColor', '#' + val);
-                }
-            });
-        }
+        $('#cells').removeClass().addClass(val);
     });
 
     // change grid color
@@ -159,6 +157,7 @@ $(function() {
         }, 500);
     });
 
+    // suggest worst
     var $randomWorst;
     $('#suggest-worst').on('click', function() {
         if (!$randomWorst || !$randomWorst.is(':not(.no)[data-val="0"]')) {
@@ -169,4 +168,37 @@ $(function() {
             $randomWorst.removeClass('suggest-no');
         }, 500);
     });
+
+    // level upload
+    $('#level-upload').on('change', function(event) {
+        var file = event.target.files[0];
+        var canvas = document.createElement('canvas');
+        var img = new Image;
+
+        canvas.width = ($('#gSize').val() == '0') ? 7 : 13;
+        canvas.height = ($('#gSize').val() == '0') ? 7 : 13;
+
+        img.onload = function() {
+            canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height);
+            canvas.toBlob(function(newFile) {
+                var form_data = new FormData();                  
+                form_data.set('file', newFile, 'level.jpg');
+
+                var ajaxRequest = new XMLHttpRequest();
+                ajaxRequest.onreadystatechange = function() {
+                    if (this.readyState === 4 && this.status === 200) {
+                        location.href = this.response;
+                    }
+                };
+                ajaxRequest.open("POST", "ajax/level-upload.php");
+                ajaxRequest.send(form_data);
+            });
+        }
+        img.src = URL.createObjectURL(file);
+    });
 });
+
+function winGame() {
+    isCheating = true;
+    $('#cells span[data-val="1"]').click();
+}

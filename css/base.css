@@ -46,7 +46,7 @@ header .buttons a {
     cursor: pointer;
 }
 
-.buttons label {
+.buttons label[for="profile-upload"] {
     position: fixed;
     right: 20px;
 }

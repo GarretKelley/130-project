@@ -57,12 +57,12 @@ include('php/levelFunctions.php');
 					<div>
 						<label for="bColorOptions">Block Color</label>
 						<select autocomplete="off" id="bColorOptions">
-							<option selected value="FFF">Default</option>
-							<option value="000">Black</option>
-							<option value="B22222">Red</option>
-							<option value="228B22">Green</option>
-							<option value="1E90FF">Blue</option>
-							<option value="FFD700">Yellow</option>
+							<option selected value="">Default</option>
+							<option value="black">Black</option>
+							<option value="red">Red</option>
+							<option value="green">Green</option>
+							<option value="blue">Blue</option>
+							<option value="yellow">Yellow</option>
 						</select>
 					</div>
 					<div>
@@ -108,6 +108,8 @@ include('php/levelFunctions.php');
 						<a href="javascript:goRand()">
 							<button id="timed">Time Attack &raquo;</button>
 						</a>
+						<label for="level-upload">Upload Picture</label>
+						<input id="level-upload" name="picture" type="file"/>
 					</div>
 				</div>
 			</div>
@@ -141,7 +143,9 @@ include('php/levelFunctions.php');
 					echo("</div>");
 				}
 
-				if (isset($_GET['mode']) && $_GET['mode'] === 'arcade') {
+				if (isset($_GET['level']) && (strlen($_GET['level']) === 49 || strlen($_GET['level']) === 169)) {
+					$board = array_chunk(str_split($_GET['level']), sqrt(strlen($_GET['level'])));
+				} else if (isset($_GET['mode']) && $_GET['mode'] === 'arcade') {
 					$board = getLevel($size, $levelNum);
 				} else {
 					$board = getRandomLevel($size);

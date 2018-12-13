@@ -44,7 +44,7 @@ h1 {
 	color: black;
 	font-size: 15px;
 	font-weight: bold;
-	margin-bottom: 10px;
+	margin: 6px 0;
 }
 
 .control-group span {
@@ -160,6 +160,26 @@ h1 {
 
 #puzzle #cells span div {
 	position: relative;
+}
+
+#puzzle #cells.black span {
+	background-color: #000;
+}
+
+#puzzle #cells.red span {
+	background-color: #b22222;
+}
+
+#puzzle #cells.green span {
+	background-color: #228b22;
+}
+
+#puzzle #cells.blue span {
+	background-color: #1e90ff;
+}
+
+#puzzle #cells.yellow span {
+	background-color: #ffd700;
 }
 
 #puzzle #cells span.yes,
