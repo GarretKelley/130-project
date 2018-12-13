@@ -1,34 +1,22 @@
-html {
-	height: 100%;
-}
-
-body {
-	font-family: Helvetica, Arial, Sans-serif;
-	font-size: 13px;
-	background-color: #e7e7e7b9;
-	height: 100%;
-}
-
 table, th, td {
     border: .1em solid #000;
     background-color: #fff;
 }
 
 table {
+    float:left;
     border-collapse: collapse;
     border-spacing: 0.2em;
-    margin-left: 300px;
-    margin-top: 100px;
-    margin-bottom: 50px;
-    width: 600px;
-    position: fixed;
+    width: 280px;
+    margin-top: 50px;
+    margin-left: 10px;
+    text-align: center;
 }
 
 thead {
     border-collapse: collapse;
     border-spacing: 0.2em;
     border: .1em solid #000;
-
     font-weight: 900;
 }
 
