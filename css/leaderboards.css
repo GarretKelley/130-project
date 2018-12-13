@@ -14,13 +14,41 @@ table, th, td {
     background-color: #fff;
 }
 
-table {
+#Arcade7Table {
     border-collapse: collapse;
     border-spacing: 0.2em;
-    margin-left: 300px;
     margin-top: 100px;
     margin-bottom: 50px;
-    width: 600px;
+    width: 280px;
+    position: fixed;
+}
+#Arcade13Table {
+    border-collapse: collapse;
+    border-spacing: 0.2em;
+    margin-left: 290px;
+    margin-top: 100px;
+    margin-bottom: 50px;
+    width: 280px;
+    position: fixed;
+}
+
+#Time7Table {
+    border-collapse: collapse;
+    border-spacing: 0.2em;
+    margin-left: 580px;
+    margin-top: 100px;
+    margin-bottom: 50px;
+    width: 280px;
+    position: fixed;
+}
+
+#Time13Table {
+    border-collapse: collapse;
+    border-spacing: 0.2em;
+    margin-left: 870px;
+    margin-top: 100px;
+    margin-bottom: 50px;
+    width: 280px;
     position: fixed;
 }
 
